@@ -1,0 +1,236 @@
+<table id="table">
+	<tbody>
+		<tr>
+			<th>AGENCIA</th>
+			<th>CENTRO DE COSTO</th>
+			<th>TIPO</th>
+			<th>CUENTA</th>
+			<th>Suma de NUEVO SALDO</th>
+		</tr>
+
+
+		<tr>
+			<td><a href="javascript:void(0)" id="agenci1" onclick="changeOpenClo('agenci1', this.id)">+</a> FUNSA</td>
+			<td class="agenci1">
+				<a href="javascript:void(0)" id="agenci1_cencos1" onclick="changeOpenClo('agenci1 cencos1', this.id)">-</a> ADMON
+			</td>
+			<td class="agenci1 cencos1">
+				<a href="javascript:void(0)" id="agenci1_cencos1_tipoxx1" onclick="changeOpenClo('agenci1 cencos1 tipoxx1', this.id)">-</a>
+				COSTOS		
+			</td>
+			<td class="agenci1 cencos1 tipoxx1"> 61050601</td>
+			<td class="agenci1"> 0000001</td>
+		</tr>
+		<tr class="agenci1 cencos1 tipoxx1">
+			<td></td>
+			<td></td>
+			<td>Total Costos</td>
+			<td></td>
+			<td>0000002</td>
+		</tr>
+		<tr class="agenci1 cencos1">
+			<td></td>
+			<td></td>
+			<td>
+				<a href="javascript:void(0)" id="agenci1_cencos1_tipoxx2" onclick="changeOpenClo('agenci1 cencos1 tipoxx2', this.id)">-</a>
+				GASTOS
+			</td>
+			<td class="agenci1 cencos1 tipoxx2">51050301</td>
+			<td>0000003</td>
+		</tr>
+		<tr class="agenci1 cencos1 tipoxx2">
+			<td></td>
+			<td></td>
+			<td>Total Costos</td>
+			<td></td>
+			<td>0000004</td>
+		</tr>
+		<tr class="agenci1 cencos1">
+			<td></td>
+			<td>Total ADMON</td>
+			<td></td>
+			<td></td>
+			<td>0000005</td>
+		</tr>
+
+
+		<tr class="agenci1">
+			<td></td>
+			<td class="agenci1">
+				<a href="javascript:void(0)" id="agenci1_cencos2" onclick="changeOpenClo('agenci1 cencos2', this.id)">-</a>
+				BARRANQUILLA
+			</td>
+			<td class="agenci1 cencos2">
+				<a href="javascript:void(0)" id="agenci1_cencos2_tipoxx1" onclick="changeOpenClo('agenci1 cencos2 tipoxx1', this.id)">-</a>
+				COSTOS
+			</td>
+			<td class="agenci1 cencos2 tipoxx1">61050601</td>
+			<td class="agenci1">0000006</td>
+		</tr>
+		<tr class="agenci1 cencos2 tipoxx1">
+			<td></td>
+			<td></td>
+			<td>Total Costos</td>
+			<td></td>
+			<td>0000007</td>
+		</tr>
+		<tr class="agenci1 cencos2">
+			<td></td>
+			<td></td>
+			<td>
+				<a href="javascript:void(0)" id="agenci1_cencos2_tipoxx2" onclick="changeOpenClo('agenci1 cencos2 tipoxx2', this.id)">-</a>
+				GASTOS
+			</td>
+			<td class="agenci1 cencos2 tipoxx2">51050301</td>
+			<td>0000008</td>
+		</tr>
+		<tr class="agenci1 cencos2 tipoxx2">
+			<td></td>
+			<td></td>
+			<td>Total Costos</td>
+			<td></td>
+			<td>0000009</td>
+		</tr>
+		<tr class="agenci1 cencos2">
+			<td></td>
+			<td>Total BARRANQUILLA</td>
+			<td></td>
+			<td></td>
+			<td>00000010</td>
+		</tr>
+	
+
+		<tr class="agenci1">
+			<td>Total FUNZA</td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>00000011</td>
+		</tr>
+		<tr>
+			<td>Total general</td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>00000012</td>
+		</tr>
+	</tbody>
+</table>
+
+<style>
+	a {
+		text-decoration: none;
+	}
+
+	table {
+		width: 1000px;
+	}
+
+	td {
+		width: 200px;
+	}
+</style>
+
+<script>
+	/**
+	 * Sirve para capturar el evento de cargue de la página
+	 * @author INTRARED <miguel.caro@intrared.net>
+	 * @param  {[object]} event) {		init();    	} Inicializador de la página
+	 */
+	document.addEventListener("DOMContentLoaded", function(event) {
+		init();
+  	});
+
+	/**
+	 * [init Inicializador de la página]
+	 * @author INTRARED <miguel.caro@intrared.net>
+	 */
+  	function init() {
+  		_openclo("agenci1", "hidden", "none");
+  	}
+
+  	/**
+  	 * [changeOpenClo Captura el evento de apertura o cierre de la rama]
+  	 * @author INTRARED <miguel.caro@intrared.net>
+  	 * @param  {[string]} _className [nombre de la clase que agrupa los elementos]
+  	 * @param  {[string]} id         [identificador del elemento]
+  	 */
+	function changeOpenClo(_className, id) {
+		var buttom = document.getElementById(id);
+		
+		switch (buttom.text) {
+			case "+": // abre la rama
+				buttom.text = "-";
+				_openclo(_className, "visible", "table-row");
+				break;
+			case "-": // cierra la rama
+				buttom.text = "+";
+				_openclo(_className, "hidden", "none");
+				// totalizar(id); // se burca la columna final para totalizar
+				break;
+		}
+	}
+
+	function totalizar (id) {
+		var ids = id.split("_");
+		var element = null;
+		var parent = null;
+		var lastChild = null;
+		 if (ids.length > 1) { // se valida que haya mas de una coincidencia para obtener la columna total de ese registro
+		 	element = document.getElementById(id);
+		 	parent = element.parentElement;
+		 	parent = parent.parentElement;
+		 	lastChild = parent.lastElementChild;
+		 	lastChild.innerHTML = "123456789";
+		 }
+	}
+
+	/**
+	 * [_openclo Valida la apertura o cierre de las ramas]
+	 * @author INTRARED <miguel.caro@intrared.net>
+	 * @param  {[string]} _className     [nombre de la clase que agrupa los elementos]
+	 * @param  {[string]} _visibilityVal [valor del atributo css visibility; hidden(ocultar)/visible(mostrar)]
+	 * @param  {[string]} _displayVal    [valor del atributo css display; none(ocultar)/table-row(mostrar)]
+	 */
+	function _openclo(_className, _visibilityVal, _displayVal) {
+		var elements = document.getElementsByClassName(_className);
+		var count = 0; // hace referencia a la primera fila
+
+		for (key in elements) { // recorre los elementos que encontró por el nombre de la clase
+			if (elements[key].style !== undefined) { // se verifica que sea un elemento al que se le pueden aplicar estilos
+				if (key > count) { // sirve para validar si no se encuentra sobre la primera fila con el fin de que cuando 
+								   // se oculten o muestren los campos estos no modifiquen el diseño de la tabla
+					_display(elements, key, _displayVal);
+				} else { // se encuentra sobre la primera fila de la apertura o cierre de la rama
+					if (elements[key].localName == 'td') { // valida que se este sobre la fila
+						count++;
+						_visibility(elements, key, _visibilityVal);
+					} else { // si encontro un elemento 'tr' o cambio de fila
+						_display(elements, key, _displayVal);
+					}
+				}
+			}
+		}
+	}
+
+	/**
+	 * [_visibility atributo css que modifica la visibilidad del elemento]
+	 * @author INTRARED <miguel.caro@intrared.net>
+	 * @param  {[object]} elements      [elemento que va a ser modificado mediante esta propiedad]
+	 * @param  {[int]} key            	[es el índice del elemento dentro de la lista]
+	 * @param  {[type]} _visibilityVal 	[valor de visibilidad]
+	 */
+	function _visibility(elements, key, _visibilityVal) {
+		elements[key].style.visibility = _visibilityVal;
+	}
+
+	/**
+	 * [_display atributo css que modifica la forma de mostrar un elemento]
+	 * @author INTRARED <miguel.caro@intrared.net>
+	 * @param  {[type]} key         [es el índice del elemento dentro de la lista]
+	 * @param  {[type]} _displayVal [valor de la forma de mostrar el elemento]
+	 */
+	function _display(elements, key, _displayVal) {
+		elements[key].style.display = _displayVal;
+	}
+</script>
