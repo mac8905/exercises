@@ -30,6 +30,13 @@
                     </tr>
                     
                     <tr>
+                        <td>formulario dinamico</td>
+                        <td>
+                            <a href="dinamicForm/index.php"> <strong> dinamic form </strong> </a>
+                        </td>
+                    </tr>
+                    
+                    <tr>
                         <td>video2</td>
                         <td>
                             Curso PHP impartido por código facilito, 
